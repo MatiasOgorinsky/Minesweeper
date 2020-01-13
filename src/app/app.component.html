@@ -1,0 +1,34 @@
+<button mat-raised-button class="boton" style="margin-top: 10px;margin-bottom: 10px" (click)="reset()">Comenzar de nuevo</button>
+<h3>Tiempo: {{contador}}</h3>
+
+<style>
+  table,
+  td {
+    border: 3px solid black;
+    border-collapse: collapse;
+  }
+  td {
+    width:32px;
+    height:32px;
+  }
+</style>
+
+<table class="table">
+  <tr *ngFor="let row of board.celdas; index as y">
+    <td
+      *ngFor="let cell of row; index as x"
+      (click)="checkCell(cell)"
+      (contextmenu)="$event.preventDefault(); flag(cell)"
+    >
+      <!-- <div>Status: {{ cell.status }}</div> -->
+      <div *ngIf="cell.status === 'clear' && !cell.mine" style="text-align:center;">{{ cell.proximityMines }}</div>
+      <div *ngIf="cell.status === 'flag'">
+        <i class="fa fa-flag" style="padding-left: 8px;"></i>
+      </div>
+      <div *ngIf="cell.mine && cell.status === 'clear'">
+        <i class="fa fa-bomb" style="padding-left: 8px;"></i>
+      </div>
+    </td>
+  </tr>
+</table>
+
